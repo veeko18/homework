@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Study App-Signup</title>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">Study.com</a>
+        <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-target="#navbarNav" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div class="jumbotron">
+        <h1 class="display-4">Signup</h1>
+
+        <div class="alert alert-danger" role="alert" th:if="${messageType} == 'error'">
+            <span th:text="${message}"></span>
+        </div>
+
+        <div class="alert alert-danger" role="alert" th:if="${schools.size() == 0}">
+            <span>Signup Unavailable!</span>
+        </div>
+
+        <form action="#" method="post" th:action="@{/signup}" th:if="${schools.size() > 0}" th:object="${user}">
+            <div class="form-group">
+                <label for="username">Email address</label>
+                <input class="form-control" id="username" required th:field="*{username}" type="email">
+                <small class="form-text text-muted" id="emailHelp">We'll never share your email with anyone
+                    else.</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" id="password" required th:field="*{password}" type="password">
+            </div>
+
+            <div class="form-group">
+                <select class="custom-select" th:field="*{authority.id}">
+                    <option th:each="authority: ${authorities}" th:text="${authority.name.replace('_', ' ')}"
+                            th:value="${authority.id}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select class="custom-select" th:field="*{school.id}">
+                    <option th:each="school: ${schools}" th:text="${school.name}" th:value="${school.id}"></option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<script crossorigin="anonymous"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
+</script>
+<script crossorigin="anonymous"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js">
+</script>
+<script crossorigin="anonymous"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+</script>
+</body>
+</html>
